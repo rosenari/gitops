@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - loki
   routes:
-    - match: Host(`*`) || PathPrefix(`/`)
+    - match: PathPrefix(`/`)
       kind: Rule
       services:
         - name: loki

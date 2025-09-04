@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - argocd                         # ArgoCD 전용 엔트리포인트 사용
   routes:
-    - match: Host(`*`) || PathPrefix(`/`)  # 모든 호스트와 경로 매칭
+    - match: PathPrefix(`/`)               # 모든 경로 매칭
       kind: Rule
       services:
         - name: argocd-server
