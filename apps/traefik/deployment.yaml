@@ -21,8 +21,8 @@ spec:
           image: traefik:v3.0
           args:
             - --api.insecure=true
-            - --providers.kubernetescrd=true
-            - --providers.kubernetesingress=true
+            - --providers.kubernetescrd
+            - --providers.kubernetesingress
             - --providers.kubernetesingress.ingressclass=traefik
             - --entrypoints.web.address=:80
             - --entrypoints.websecure.address=:443
