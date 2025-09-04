@@ -1,22 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: monitoring
+  name: argocd-ingress
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: git@github.com:rosenari/gitops.git
+    repoURL: https://github.com/rosenari/gitops.git
     targetRevision: HEAD
-    path: apps/monitoring
+    path: apps/argocd-ingress
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
