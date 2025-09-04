@@ -6,3 +6,4 @@ resources:
   - deployment.yaml
   - service.yaml
   - rbac.yaml
+  - argocd-ingressroute.yaml
