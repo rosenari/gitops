@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: git@github.com:rosenari/gitops.git
+    repoURL: https://github.com/rosenari/gitops.git
     targetRevision: HEAD
     path: argocd-apps
   destination:
