@@ -24,5 +24,14 @@ spec:
     - port: 6379                       # 외부 Redis 포트
       name: redis                      # 포트 이름
       targetPort: 6379                 # 컨테이너 내부 포트
+    - port: 8081                       # 외부 ArgoCD 포트
+      name: argocd                     # 포트 이름
+      targetPort: 8081                 # 컨테이너 내부 포트
+    - port: 3001                       # 외부 Grafana 포트
+      name: grafana                    # 포트 이름
+      targetPort: 3001                 # 컨테이너 내부 포트
+    - port: 3101                       # 외부 Loki 포트
+      name: loki                       # 포트 이름
+      targetPort: 3101                 # 컨테이너 내부 포트
   selector:
     app: traefik                       # 트래픽을 라우팅할 파드 선택 (app=traefik 레이블을 가진 파드)

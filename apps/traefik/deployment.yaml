@@ -30,6 +30,9 @@ spec:
             - --entrypoints.websecure.address=:443    # HTTPS 엔트리포인트 (포트 443)
             - --entrypoints.mysql.address=:3306       # MySQL TCP 엔트리포인트
             - --entrypoints.redis.address=:6379       # Redis TCP 엔트리포인트
+            - --entrypoints.argocd.address=:8081      # ArgoCD HTTP 엔트리포인트
+            - --entrypoints.grafana.address=:3001     # Grafana HTTP 엔트리포인트
+            - --entrypoints.loki.address=:3101        # Loki HTTP 엔트리포인트
             - --certificatesresolvers.default.acme.tlschallenge=true # ACME TLS 챌린지 활성화
             - --certificatesresolvers.default.acme.email=admin@example.com # ACME 등록 이메일
             - --certificatesresolvers.default.acme.storage=/data/acme.json # 인증서 저장 경로
@@ -45,6 +48,12 @@ spec:
               containerPort: 3306
             - name: redis                 # Redis TCP 포트
               containerPort: 6379
+            - name: argocd                # ArgoCD HTTP 포트
+              containerPort: 8081
+            - name: grafana               # Grafana HTTP 포트
+              containerPort: 3001
+            - name: loki                  # Loki HTTP 포트
+              containerPort: 3101
           volumeMounts:
             - name: data                  # ACME 인증서 저장을 위한 볼륨 마운트
               mountPath: /data

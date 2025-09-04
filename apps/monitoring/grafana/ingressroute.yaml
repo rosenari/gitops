@@ -5,22 +5,10 @@ metadata:
   namespace: monitoring
 spec:
   entryPoints:
-    - web
+    - grafana
   routes:
-    - match: PathPrefix(`/grafana`)
+    - match: HostSNI(`*`)
       kind: Rule
       services:
         - name: grafana
           port: 3000
-      middlewares:
-        - name: grafana-stripprefix
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: grafana-stripprefix
-  namespace: monitoring
-spec:
-  stripPrefix:
-    prefixes:
-      - /grafana
