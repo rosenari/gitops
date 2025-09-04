@@ -1,5 +1,13 @@
+# 모니터링 스택 Kustomization 설정 파일
+# 현재는 네임스페이스만 정의되어 있으며, 향후 Prometheus, Grafana, Alertmanager 등의
+# 모니터링 도구들이 추가될 예정입니다.
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+# 배포할 리소스 목록
 resources:
-  - namespace.yaml
+  - namespace.yaml          # monitoring 네임스페이스 생성
+  # 향후 추가 예정:
+  # - prometheus/            # 메트릭 수집 및 저장
+  # - grafana/              # 메트릭 시각화 대시보드
+  # - alertmanager/         # 알림 관리

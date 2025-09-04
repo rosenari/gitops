@@ -1,9 +1,13 @@
+# Kustomization 설정 파일
+# Traefik 관련 모든 Kubernetes 리소스를 하나로 묶어서 관리합니다.
+# ArgoCD는 이 파일을 읽어서 모든 리소스를 자동으로 배포합니다.
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+# 배포할 리소스 목록 (순서대로 적용됨)
 resources:
-  - namespace.yaml
-  - deployment.yaml
-  - service.yaml
-  - rbac.yaml
-  - argocd-ingressroute.yaml
+  - namespace.yaml          # traefik-system 네임스페이스 생성
+  - deployment.yaml         # Traefik 컨테이너 배포
+  - service.yaml            # 외부 접근을 위한 LoadBalancer 서비스
+  - rbac.yaml              # Kubernetes API 접근을 위한 권한 설정
+  - argocd-ingressroute.yaml # ArgoCD UI 접근을 위한 인그레스 라우트

@@ -1,6 +1,8 @@
+# Traefik 전용 네임스페이스 정의
+# 모든 Traefik 관련 리소스들을 논리적으로 분리하여 관리합니다.
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: traefik-system
+  name: traefik-system        # 네임스페이스 이름
   labels:
-    name: traefik-system
+    name: traefik-system      # 네임스페이스 식별을 위한 레이블

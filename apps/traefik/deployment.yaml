@@ -1,45 +1,47 @@
+# Traefik 인그레스 컨트롤러 배포 설정
+# HTTP/HTTPS 트래픽을 클러스터 내부 서비스로 라우팅하는 리버스 프록시입니다.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: traefik
-  namespace: traefik-system
+  name: traefik                           # Deployment 이름
+  namespace: traefik-system               # 배포될 네임스페이스
   labels:
-    app: traefik
+    app: traefik                          # 애플리케이션 식별 레이블
 spec:
-  replicas: 1
+  replicas: 1                             # 실행할 파드 개수
   selector:
     matchLabels:
-      app: traefik
+      app: traefik                        # 관리할 파드를 선택하는 레이블
   template:
     metadata:
       labels:
-        app: traefik
+        app: traefik                      # 파드에 부여할 레이블
     spec:
-      serviceAccountName: traefik
+      serviceAccountName: traefik         # Kubernetes API 접근을 위한 서비스 계정
       containers:
         - name: traefik
-          image: traefik:v3.0
+          image: traefik:v3.0             # Traefik v3.0 컨테이너 이미지
           args:
-            - --api.insecure=true
-            - --providers.kubernetescrd
-            - --providers.kubernetesingress
-            - --providers.kubernetesingress.ingressclass=traefik
-            - --entrypoints.web.address=:80
-            - --entrypoints.websecure.address=:443
-            - --certificatesresolvers.default.acme.tlschallenge=true
-            - --certificatesresolvers.default.acme.email=admin@example.com
-            - --certificatesresolvers.default.acme.storage=/data/acme.json
-            - --certificatesresolvers.default.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+            - --api.insecure=true         # 관리 API 활성화 (insecure 모드)
+            - --providers.kubernetescrd   # Kubernetes CRD 프로바이더 활성화
+            - --providers.kubernetesingress # Kubernetes Ingress 프로바이더 활성화
+            - --providers.kubernetesingress.ingressclass=traefik # IngressClass 지정
+            - --entrypoints.web.address=:80           # HTTP 엔트리포인트 (포트 80)
+            - --entrypoints.websecure.address=:443    # HTTPS 엔트리포인트 (포트 443)
+            - --certificatesresolvers.default.acme.tlschallenge=true # ACME TLS 챌린지 활성화
+            - --certificatesresolvers.default.acme.email=admin@example.com # ACME 등록 이메일
+            - --certificatesresolvers.default.acme.storage=/data/acme.json # 인증서 저장 경로
+            - --certificatesresolvers.default.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory # Let's Encrypt 스테이징 서버
           ports:
-            - name: web
+            - name: web                   # HTTP 포트
               containerPort: 80
-            - name: websecure
+            - name: websecure             # HTTPS 포트
               containerPort: 443
-            - name: admin
+            - name: admin                 # 관리 UI 포트
               containerPort: 8080
           volumeMounts:
-            - name: data
+            - name: data                  # ACME 인증서 저장을 위한 볼륨 마운트
               mountPath: /data
       volumes:
-        - name: data
+        - name: data                      # 임시 저장소 (재시작 시 데이터 손실)
           emptyDir: {}

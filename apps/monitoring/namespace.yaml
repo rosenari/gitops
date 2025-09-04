@@ -1,6 +1,9 @@
+# 모니터링 전용 네임스페이스 정의
+# Prometheus, Grafana, Alertmanager 등 모든 모니터링 관련 리소스들을
+# 논리적으로 분리하여 관리하기 위한 네임스페이스입니다.
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: monitoring
+  name: monitoring              # 네임스페이스 이름
   labels:
-    name: monitoring
+    name: monitoring            # 네임스페이스 식별을 위한 레이블

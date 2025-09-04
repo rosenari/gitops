@@ -1,22 +1,24 @@
+# Traefik 인그레스 컨트롤러 배포를 위한 ArgoCD 애플리케이션
+# 클러스터 외부에서 내부 서비스로의 HTTP/HTTPS 트래픽을 라우팅합니다.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik
-  namespace: argocd
+  name: traefik                                        # 애플리케이션 이름
+  namespace: argocd                                    # ArgoCD가 설치된 네임스페이스
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io          # 애플리케이션 삭제 시 리소스 정리 보장
 spec:
-  project: default
+  project: default                                     # ArgoCD 프로젝트 (기본값 사용)
   source:
-    repoURL: https://github.com/rosenari/gitops.git
-    targetRevision: HEAD
-    path: apps/traefik
+    repoURL: https://github.com/rosenari/gitops.git    # Git 저장소 URL
+    targetRevision: HEAD                               # 추적할 브랜치/태그 (HEAD = 최신)
+    path: apps/traefik                                 # Traefik 매니페스트가 있는 경로
   destination:
-    server: https://kubernetes.default.svc
-    namespace: traefik-system
+    server: https://kubernetes.default.svc             # 대상 클러스터 (현재 클러스터)
+    namespace: traefik-system                          # Traefik이 배포될 네임스페이스
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    automated:                                         # 자동 동기화 정책
+      prune: true                                      # 삭제된 리소스 자동 정리
+      selfHeal: true                                   # 드리프트 발생 시 자동 복구
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=true                           # 대상 네임스페이스가 없으면 자동 생성

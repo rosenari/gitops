@@ -1,19 +1,22 @@
+# Traefik LoadBalancer 서비스 정의
+# 클러스터 외부에서 Traefik 인그레스 컨트롤러에 접근할 수 있도록 하는 서비스입니다.
+# LoadBalancer 타입으로 설정되어 클라우드 환경에서 자동으로 외부 IP를 할당받습니다.
 apiVersion: v1
 kind: Service
 metadata:
-  name: traefik
-  namespace: traefik-system
+  name: traefik                        # 서비스 이름
+  namespace: traefik-system            # 서비스가 생성될 네임스페이스
 spec:
-  type: LoadBalancer
+  type: LoadBalancer                   # 클라우드 로드밸런서 사용
   ports:
-    - port: 80
-      name: web
-      targetPort: 80
-    - port: 443
-      name: websecure
-      targetPort: 443
-    - port: 8080
-      name: admin
-      targetPort: 8080
+    - port: 80                         # 외부 HTTP 포트
+      name: web                        # 포트 이름
+      targetPort: 80                   # 컨테이너 내부 포트
+    - port: 443                        # 외부 HTTPS 포트
+      name: websecure                  # 포트 이름
+      targetPort: 443                  # 컨테이너 내부 포트
+    - port: 8080                       # 외부 관리 UI 포트
+      name: admin                      # 포트 이름
+      targetPort: 8080                 # 컨테이너 내부 포트
   selector:
-    app: traefik
+    app: traefik                       # 트래픽을 라우팅할 파드 선택 (app=traefik 레이블을 가진 파드)
