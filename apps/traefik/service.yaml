@@ -18,5 +18,11 @@ spec:
     - port: 8080                       # 외부 관리 UI 포트
       name: admin                      # 포트 이름
       targetPort: 8080                 # 컨테이너 내부 포트
+    - port: 3306                       # 외부 MySQL 포트
+      name: mysql                      # 포트 이름
+      targetPort: 3306                 # 컨테이너 내부 포트
+    - port: 6379                       # 외부 Redis 포트
+      name: redis                      # 포트 이름
+      targetPort: 6379                 # 컨테이너 내부 포트
   selector:
     app: traefik                       # 트래픽을 라우팅할 파드 선택 (app=traefik 레이블을 가진 파드)

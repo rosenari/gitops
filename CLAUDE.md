@@ -43,6 +43,25 @@ This is a GitOps repository for managing Kubernetes applications using ArgoCD.
 - ArgoCD Applications are defined in `argocd-apps/`
 - The `app-of-apps` pattern is used for managing multiple applications
 
+## Development Philosophy
+
+**Principle: Minimal Implementation**
+- Implement only what is explicitly requested or immediately necessary
+- Do NOT anticipate future requirements or add "nice-to-have" features
+- Avoid over-engineering or premature optimization
+- Start with the simplest solution that meets the current need
+- Add complexity only when it becomes genuinely required
+
+**Guidelines:**
+- When asked to implement feature X, implement only feature X
+- Do not add logging, monitoring, or additional features unless specifically requested
+- Prefer simple configurations over flexible but complex ones
+- Use minimal dependencies and avoid unnecessary abstractions
+- Focus on solving the immediate problem, not potential future problems
+- **However, ensure code is modular and easy to modify when changes are needed**
+- Separate concerns appropriately to enable clean modifications later
+- Use clear naming and logical file/directory structure for maintainability
+
 ## Important Notes
 
 - All applications use automated sync with prune and self-heal enabled

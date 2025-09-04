@@ -28,6 +28,8 @@ spec:
             - --providers.kubernetesingress.ingressclass=traefik # IngressClass 지정
             - --entrypoints.web.address=:80           # HTTP 엔트리포인트 (포트 80)
             - --entrypoints.websecure.address=:443    # HTTPS 엔트리포인트 (포트 443)
+            - --entrypoints.mysql.address=:3306       # MySQL TCP 엔트리포인트
+            - --entrypoints.redis.address=:6379       # Redis TCP 엔트리포인트
             - --certificatesresolvers.default.acme.tlschallenge=true # ACME TLS 챌린지 활성화
             - --certificatesresolvers.default.acme.email=admin@example.com # ACME 등록 이메일
             - --certificatesresolvers.default.acme.storage=/data/acme.json # 인증서 저장 경로
@@ -39,6 +41,10 @@ spec:
               containerPort: 443
             - name: admin                 # 관리 UI 포트
               containerPort: 8080
+            - name: mysql                 # MySQL TCP 포트
+              containerPort: 3306
+            - name: redis                 # Redis TCP 포트
+              containerPort: 6379
           volumeMounts:
             - name: data                  # ACME 인증서 저장을 위한 볼륨 마운트
               mountPath: /data

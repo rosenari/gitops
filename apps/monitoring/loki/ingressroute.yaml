@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: loki
+  namespace: monitoring
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/loki`)
+      kind: Rule
+      services:
+        - name: loki
+          port: 3100
+      middlewares:
+        - name: loki-stripprefix
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: loki-stripprefix
+  namespace: monitoring
+spec:
+  stripPrefix:
+    prefixes:
+      - /loki

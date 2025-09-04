@@ -7,7 +7,12 @@ kind: Kustomization
 # 배포할 리소스 목록
 resources:
   - namespace.yaml          # monitoring 네임스페이스 생성
+  - loki/deployment.yaml    # 로그 수집 및 저장
+  - loki/service.yaml
+  - loki/ingressroute.yaml
+  - grafana/deployment.yaml # 메트릭 시각화 대시보드
+  - grafana/service.yaml
+  - grafana/ingressroute.yaml
   # 향후 추가 예정:
   # - prometheus/            # 메트릭 수집 및 저장
-  # - grafana/              # 메트릭 시각화 대시보드
   # - alertmanager/         # 알림 관리

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  namespace: mysql
+data:
+  MYSQL_ROOT_PASSWORD: "rootpass123"
+  MYSQL_DATABASE: "testdb"
+  MYSQL_USER: "testuser"
+  MYSQL_PASSWORD: "testpass123"

@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/grafana`)
+      kind: Rule
+      services:
+        - name: grafana
+          port: 3000
+      middlewares:
+        - name: grafana-stripprefix
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: grafana-stripprefix
+  namespace: monitoring
+spec:
+  stripPrefix:
+    prefixes:
+      - /grafana
