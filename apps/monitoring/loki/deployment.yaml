@@ -27,4 +27,5 @@ spec:
               mountPath: /loki
       volumes:
         - name: loki-storage
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: loki-storage

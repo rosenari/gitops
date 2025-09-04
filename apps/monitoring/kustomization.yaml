@@ -10,6 +10,7 @@ resources:
   - loki/deployment.yaml    # 로그 수집 및 저장
   - loki/service.yaml
   - loki/ingressroute.yaml
+  - loki/pvc.yaml          # Loki 영속 스토리지
   - grafana/deployment.yaml # 메트릭 시각화 대시보드
   - grafana/service.yaml
   - grafana/ingressroute.yaml
