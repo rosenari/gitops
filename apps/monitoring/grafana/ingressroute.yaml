@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - grafana
   routes:
-    - match: HostSNI(`*`)
+    - match: Host(`*`) || PathPrefix(`/`)
       kind: Rule
       services:
         - name: grafana
