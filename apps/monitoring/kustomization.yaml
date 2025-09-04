@@ -14,6 +14,7 @@ resources:
   - grafana/deployment.yaml # 메트릭 시각화 대시보드
   - grafana/service.yaml
   - grafana/ingressroute.yaml
+  - grafana/pvc.yaml       # Grafana 영속 스토리지
   # 향후 추가 예정:
   # - prometheus/            # 메트릭 수집 및 저장
   # - alertmanager/         # 알림 관리
